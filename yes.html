@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finally!</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Playfair+Display:wght@600;700;800&family=Oswald:wght@400;500;600;700&family=Pacifico&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="photo-tape">
+
+        <div class="tape-track">
+
+            <img src="assets/photo-beach.jpg" alt="">
+            <img src="assets/photo-window.jpg" alt="">
+            <img src="assets/photo-beach.jpg" alt="">
+            <img src="assets/photo-window.jpg" alt="">
+            <img src="assets/photo-beach.jpg" alt="">
+            <img src="assets/photo-window.jpg" alt="">
+
+            <img src="assets/photo-beach.jpg" alt="">
+            <img src="assets/photo-window.jpg" alt="">
+            <img src="assets/photo-beach.jpg" alt="">
+            <img src="assets/photo-window.jpg" alt="">
+            <img src="assets/photo-beach.jpg" alt="">
+            <img src="assets/photo-window.jpg" alt="">
+
+        </div>
+
+    </header>
+
+
+    <main class="hero response-hero">
+
+        <section class="proposal">
+
+            <p class="small-heading">
+                FINALLY
+            </p>
+
+            <h1>
+                WHAT TOOK YOU
+            </h1>
+
+            <h2>
+                so long to click?
+            </h2>
+
+            <div class="circle-decoration">
+
+                <div class="sun-rays"></div>
+
+                <div class="vinyl-frame">
+                    <img id="vinylImg" class="vinyl" src="assets/vinyl.png" alt="Spinning vinyl record">
+                </div>
+
+            </div>
+
+            <p class="response-line">
+                do you hate me?
+            </p>
+
+            <a href="index.html" class="answer-button yes-button response-back">
+                BACK
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <section class="bottom-section">
+
+        <div class="section-heading">
+
+            <div class="heading-line">
+                ★★★★★★★★★★★★★
+            </div>
+
+            <div class="heading-line">
+                ★★★★★★★★★★★★★
+            </div>
+
+        </div>
+
+        <div class="little-icon">
+            ♥
+        </div>
+
+    </section>
+
+    <audio id="bgSong" src="assets/audio/song.mp3" autoplay loop preload="auto"></audio>
+
+    <script>
+        const bgSong = document.getElementById("bgSong");
+        const vinylImg = document.getElementById("vinylImg");
+
+        if (vinylImg) {
+            bgSong.addEventListener("play", () => vinylImg.classList.add("spinning"));
+            bgSong.addEventListener("pause", () => vinylImg.classList.remove("spinning"));
+            bgSong.addEventListener("ended", () => vinylImg.classList.remove("spinning"));
+        }
+
+        const savedTime = sessionStorage.getItem("bgSongTime");
+
+        if (savedTime !== null) {
+
+            bgSong.addEventListener("loadedmetadata", () => {
+                bgSong.currentTime = parseFloat(savedTime);
+            });
+
+        }
+
+        window.addEventListener("beforeunload", () => {
+            sessionStorage.setItem("bgSongTime", bgSong.currentTime);
+        });
+
+        bgSong.play().catch(() => {
+
+            const fallback = document.createElement("button");
+            fallback.className = "play-song-fallback";
+            fallback.textContent = "♪ PLAY SONG";
+
+            fallback.addEventListener("click", () => {
+                bgSong.play();
+                fallback.remove();
+            });
+
+            document.body.appendChild(fallback);
+
+        });
+    </script>
+
+</body>
+</html>
